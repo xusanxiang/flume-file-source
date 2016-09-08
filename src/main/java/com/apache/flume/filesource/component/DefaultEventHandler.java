@@ -8,6 +8,7 @@ import java.util.Map;
 
 import com.apache.flume.filesource.util.IpUtil;
 import com.apache.flume.filesource.component.inf.EventHandler;
+import com.apache.flume.filesource.util.TimeUtil;
 import org.apache.flume.Event;
 import org.apache.flume.channel.ChannelProcessor;
 import org.apache.flume.event.EventBuilder;
@@ -63,6 +64,7 @@ public class DefaultEventHandler implements EventHandler {
                 byte[] lineArray = new byte[bufferGetCount - 1 - lineEndPosition];
                 System.arraycopy(bufferArray, lineEndPosition + 1, lineArray, 0, bufferGetCount - 1 - lineEndPosition);
                 lineEndPosition = bufferGetCount - 1;
+                eventHeader.put(Constants.HEADER_TIME, TimeUtil.getNowTime());
                 Event event = EventBuilder.withBody(lineArray, eventHeader);
                 this.eventList.add(event);
             }

@@ -7,7 +7,7 @@
 	<groupId>flume-source</groupId>
 	<artifactId>flume-file-source</artifactId>
 	<name>Flume File Source</name>
-	<version>1.0.0</version>
+	<version>1.0.1</version>
 	<build>
 		<plugins>
 			<plugin>

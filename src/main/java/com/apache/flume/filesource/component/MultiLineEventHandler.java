@@ -5,6 +5,8 @@
  *****************************************************************************/
 package com.apache.flume.filesource.component;
 
+import com.apache.flume.filesource.common.Constants;
+import com.apache.flume.filesource.util.TimeUtil;
 import com.google.common.collect.Lists;
 import org.apache.flume.Event;
 import org.apache.flume.channel.ChannelProcessor;
@@ -72,6 +74,7 @@ public class MultiLineEventHandler extends DefaultEventHandler {
                         for (int i = 0; i < bufferedLines.size(); ++i) {
                             total += bufferedLines.get(i);
                         }
+                        getEventHeader().put(Constants.HEADER_TIME, TimeUtil.getTime(m.group()));
                         Event event = EventBuilder.withBody(total.getBytes(), getEventHeader());
                         getEventList().add(event);
                         bufferedLines.clear();
