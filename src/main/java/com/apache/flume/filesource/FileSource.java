@@ -185,9 +185,12 @@ public class FileSource extends AbstractSource implements Configurable, EventDri
 							if (createFlag) {
 								eventHandler.sendEvent();
                                 eventCount += eventHandler.getEventList().size();
-							} else {
-                                // 没能成功创建event跳过这个buffer
+							} else if(bytesRead >= BUFFER_SIZE - 1){
+                                // 没能成功创建event且buffer读满了跳过这个buffer
                                 eventHandler.addReadBytes(bytesRead);
+							}else {
+								// 没有读满buffer,且数据中没有整行,重新读取数据
+								eventHandler.setReadBytes(0);
 							}
 
 							if (readCount % Constants.PRINT_COUNT == 0) {

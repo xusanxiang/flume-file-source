@@ -40,4 +40,6 @@ public interface EventHandler {
     int addReadBytes(int bytes);
 
     int getReadBytes();
+
+    public void setReadBytes(int readBytes);
 }
